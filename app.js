@@ -3,12 +3,12 @@ require("dotenv").config();
 const cors = require("cors");
 const dbConnection = require("./configs/db"); // Import the database connection module
 const userRoutes = require("./routes/userRoutes"); // Import user routes
+const activityRoutes = require("./routes/activityRoutes"); // Import activity routes
 const errorHandler = require("./middlewares/errorhandler");
 
 dbConnection(); // Call the function to establish the database connection
 
 const app = express();
-const PORT = process.env.PORT || 8080;
 
 // Middleware to parse JSON data (API requests)
 app.use(express.json());
@@ -21,12 +21,12 @@ app.use(
   })
 );
 
-// Use the user routes for any requests to /api/users
+// Use the user routes for any requests to /v1/users
 app.use("/v1/users", userRoutes);
+// Adding the activity routes to the app
+app.use("/v1/activities", activityRoutes); // Use the activity routes for any requests to /v1/activities
+
 // Middleware to handle errors (should be the last middleware in the stack)
 app.use(errorHandler);
 
-app.listen(PORT, (err) => {
-  if (err) throw Error(err.message);
-  console.log(`Application is successfully running on PORT ------> ${PORT}`);
-});
+module.exports = app; // Export the Express app for use in other files (e.g., server.js)

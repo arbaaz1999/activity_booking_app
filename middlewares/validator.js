@@ -17,4 +17,21 @@ const validateUserRequest = (req, res, next) => {
   next();
 };
 
-module.exports = { validateUserRequest };
+const validateActivityRequest = (req, res, next) => {
+  const schema = Joi.object({
+    title: Joi.string().min(3).max(100).required(),
+    description: Joi.string().min(10).max(500).required(),
+    location: Joi.string().min(3).max(100).required(),
+    dateTime: Joi.date().iso().required(),
+  });
+
+  const { error } = schema.validate(req.body);
+
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
+
+  next();
+};
+
+module.exports = { validateUserRequest, validateActivityRequest };
