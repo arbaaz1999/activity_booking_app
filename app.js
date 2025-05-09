@@ -21,6 +21,10 @@ app.use(
   })
 );
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the API!"); // Send a welcome message for the root route
+});
+
 // Use the user routes for any requests to /v1/users
 app.use("/v1/users", userRoutes);
 // Adding the activity routes to the app
