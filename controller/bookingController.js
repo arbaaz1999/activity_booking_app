@@ -21,7 +21,11 @@ exports.getMyBookings = async (req, res) => {
     const bookings = await Booking.find({ user: req.user.id })
       .populate("activity")
       .populate("user", "name email");
-    res.json(bookings);
+    res.json({
+      status: "OK",
+      message: "Bookings fetched successfully",
+      result: { ...bookings },
+    });
   } catch (err) {
     console.log(err, "Error fetching bookings");
     res.status(500).json({ error: "Server error" });

@@ -12,7 +12,6 @@ module.exports = (req, res, next) => {
       }
 
       if (decoded) {
-        console.log(decoded);
         req.user = decoded;
         next();
       }
