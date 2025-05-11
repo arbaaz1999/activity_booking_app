@@ -36,7 +36,13 @@ const userController = {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
         expiresIn: "1h",
       });
-      res.status(200).json({ token, userId: user._id });
+      res
+        .status(200)
+        .json({
+          status: "OK",
+          message: "Login successful",
+          result: { token, user },
+        });
     } catch (error) {
       console.error("Error logging in user:", error);
       res.status(500).json({ message: "Internal server error" });

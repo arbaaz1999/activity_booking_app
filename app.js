@@ -4,6 +4,7 @@ const cors = require("cors");
 const dbConnection = require("./configs/db"); // Import the database connection module
 const userRoutes = require("./routes/userRoutes"); // Import user routes
 const activityRoutes = require("./routes/activityRoutes"); // Import activity routes
+const bookingRoutes = require("./routes/bookingRoutes"); // Import booking routes
 const errorHandler = require("./middlewares/errorhandler");
 
 dbConnection(); // Call the function to establish the database connection
@@ -29,6 +30,8 @@ app.get("/", (req, res) => {
 app.use("/v1/users", userRoutes);
 // Adding the activity routes to the app
 app.use("/v1/activities", activityRoutes); // Use the activity routes for any requests to /v1/activities
+// Adding the booking routes to the app
+app.use("/v1/bookings", bookingRoutes); // Use the booking routes for any requests to /v1/bookings
 
 // Middleware to handle errors (should be the last middleware in the stack)
 app.use(errorHandler);
